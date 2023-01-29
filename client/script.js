@@ -91,7 +91,7 @@ const handleSubmit = async (event) => {
   loader(messageDiv);
 
   // fetch data from server -> bot's response
-  const response = await fetch('http://localhost:5000', {
+  const response = await fetch('https://conversant-ai.onrender.com', {
     method: 'POST',
     headers: {
       'Content-type': 'application/json'
