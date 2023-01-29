@@ -3,6 +3,9 @@ import user from './assets/user.svg';
 
 const form = document.querySelector('form');
 const chatContainer = document.querySelector('#chat_container');
+const textarea = document.querySelector('textarea');
+
+textarea.focus();
 
 let loadInterval;
 
@@ -22,6 +25,8 @@ function typeText(element, text){
   let index = 0;
 
   let interval = setInterval(() => {
+    chatContainer.scrollTop = chatContainer.scrollHeight
+
     if(index < text.length){
       element.innerHTML += text.charAt(index);
       index++;
@@ -61,11 +66,11 @@ function chatStripe(isAi, value, uniqueId){
   )
 }
 
-let textarea = document.querySelector('textarea');
 const handleSubmit = async (event) => {
   event.preventDefault();
-
+  
   textarea.style.height = '';
+  
   const data = new FormData(form);
   
   // user's chat stripe
@@ -76,7 +81,7 @@ const handleSubmit = async (event) => {
 
   // bot's chat stripe
   const uniqueId = generateUniqueId();
-  chatContainer.innerHTML += chatStripe(true, " ", uniqueId);
+  chatContainer.innerHTML += chatStripe(true, '', uniqueId);
 
   // to focus scroll to the bottom
   chatContainer.scrollTop = chatContainer.scrollHeight;
@@ -104,6 +109,7 @@ const handleSubmit = async (event) => {
     const parsedData = data.bot.trim();
 
     typeText(messageDiv, parsedData);
+
   }else{
     const err = await response.text();
 
