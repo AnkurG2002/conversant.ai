@@ -7,6 +7,36 @@ const textarea = document.querySelector('textarea');
 
 textarea.focus();
 
+
+function switchMode() {
+  let mode = document.getElementById ("mode");
+  
+  if(mode.className == "moon"){
+    mode.classList.remove("moon");
+    mode.classList.add("sun");
+
+    document.body.style.backgroundColor = "#343541";
+    document.body.style.color = "#fff";
+    form.style.backgroundColor = "#40414F";
+    textarea.style.color = "#fff";
+    chatContainer.style.color = "#dcdcdc";
+    document.documentElement.style.setProperty('--col', '#40414F');
+  }
+  else {
+    mode.classList.remove("sun");
+    mode.classList.add("moon");
+
+    document.body.style.backgroundColor = "#fff";
+    document.body.style.color = "#000";
+    form.style.backgroundColor = "#fff";
+    textarea.style.color = "#000";
+    chatContainer.style.color = "#313030";
+    document.documentElement.style.setProperty('--col', '#cad3d166');
+  }
+}
+
+document.querySelector('.toggle').addEventListener('click', switchMode);
+
 let loadInterval;
 
 function loader(element){
@@ -91,6 +121,7 @@ const handleSubmit = async (event) => {
   loader(messageDiv);
 
   // fetch data from server -> bot's response
+  // dev -> http://localhost:5000    prod -> https://conversant-ai.onrender.com
   const response = await fetch('https://conversant-ai.onrender.com', {
     method: 'POST',
     headers: {
